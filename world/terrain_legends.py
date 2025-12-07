@@ -30,3 +30,17 @@ TERRAIN_CATALOGUE: Dict[str, float] = {
     "shadow_mountain": 10.0,     # extremely hard to cross
     "wall_of_ancients": inf,      # impassable
 }
+
+# ----------------------------------------------------------
+# SYMBOL MAP FOR ASCII VISUALISATION 
+#-----------------------------------------------------------
+
+TERRAIN_SYMBOLS: Dict[str, str] = {
+    "whispering_grassland": ".",
+    "forst_of_reflections": "F",
+    "desert_of_doom": "D",
+    "frozen_lake": "~",
+    "muddy_marsh": "M",
+    "shadow_mountain": "^",
+    "wall_of_ancients": "#",
+}
