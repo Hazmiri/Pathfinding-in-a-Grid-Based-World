@@ -39,3 +39,8 @@ REVERSE_SHORTCODES: Dict[str, str] = {
     long: short for short, long in TERRAIN_SHORTCODES.items()
 }
 
+# ---------------------------------------------------------
+# GRID FORGING CLASS
+# ---------------------------------------------------------
+
+
