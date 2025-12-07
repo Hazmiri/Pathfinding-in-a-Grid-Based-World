@@ -56,3 +56,12 @@ def is_valid_terrain (name: str) -> bool:
     """
     return name in TERRAIN_CATALOGUE
 
+# ---------------------------------------------------------
+# MINIMUM MOVEMENT COST (for heuristic scaling)
+# ---------------------------------------------------------
+
+def minimum_traversable_cost() -> float:
+    """
+    Return the lowest movement cost in the terrain list, excluding impassable terrain.
+    """
+    return min (cost for cost in TERRAIN_CATALOGUE.values() if cost != inf)
