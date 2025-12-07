@@ -44,3 +44,15 @@ TERRAIN_SYMBOLS: Dict[str, str] = {
     "shadow_mountain": "^",
     "wall_of_ancients": "#",
 }
+
+# ---------------------------------------------------------
+# TERRAIN VALIDATION
+# ---------------------------------------------------------
+
+def is_valid_terrain (name: str) -> bool:
+    
+    """
+    Return True if given terrain name exists in the catalogue above.
+    """
+    return name in TERRAIN_CATALOGUE
+
