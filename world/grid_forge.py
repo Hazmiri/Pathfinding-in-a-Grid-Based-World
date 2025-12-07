@@ -18,3 +18,24 @@ from terrain_legends import (
     is_valid_terrain,
     minimum_traversable_cost,
 )
+
+# ---------------------------------------------------------
+# SHORT CODES FOR CONVENIENT JSON MAPS
+# ---------------------------------------------------------
+
+TERRAIN_SHORTCODES: Dict[str, str] = {
+    "WG": "whispering_grassland",
+    "FR": "forest_of_reflections",
+    "DD": "desert_of_doom",
+    "FL": "frozen_lake",
+    "MM": "muddy_marsh",
+    "SM": "shadow_mountain",
+    "WA": "wall_of_ancients",
+}
+
+# Reverse lookup: long -> short (for optional future use)
+
+REVERSE_SHORTCODES: Dict[str, str] = {
+    long: short for short, long in TERRAIN_SHORTCODES.items()
+}
+
