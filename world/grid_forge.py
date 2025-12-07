@@ -78,3 +78,37 @@ def __init__(self, json_path: str):
     # Dimensions.
     self.height = len (self.grid)
     self.width = len(self.grid[0])
+    
+# -----------------------------------------------------------------------
+# JSON LOADING
+# -----------------------------------------------------------------------
+
+def _load_json(self) -> List[List[str]]:
+    """
+    Load the JSON file into memory.
+    """
+    with open(self.json_path, "r", encoding = "utf-8") as file:
+        return json.load(file)
+    
+# -----------------------------------------------------------------------
+# STRUCTURE VALIDATION
+# -----------------------------------------------------------------------
+
+def _validate_structure(self, raw_grid: List[List[str]]) -> None:
+    """
+    Ensure the JSON map is a proper rextangular grid.
+    
+    Raises: 
+        ValueError: if the grid is malformed.
+    """
+    if not isinstance(raw_grid, list) or len(raw_grid) == 0:
+        raise ValueError("Map must be a non-empty 2D list.")
+    
+    expected_row_length = len(raw_grid[0])
+    
+    for row in raw_grid:
+        if not isinstance(row, list):
+            raise ValueError("Row in the map is not a lsit.")
+        if len(row) != expected_row_length:
+            raise ValueError("Map rows must all be the same length.")
+        
