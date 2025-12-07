@@ -22,5 +22,11 @@ from typing import Dict
 # -----------------------------------------------------------
 
 TERRAIN_CATALOGUE: Dict[str, float] = {
-    
+    "whispering_grassland": 1.0, # easy movement
+    "forest_of_reflection": 1.8, # tree density
+    "desert_of_doom": 4.5,       # dry and draining
+    "frozen_lake": 6.0,          # slipperry and slow
+    "muddy_marsh": 2.7,          # sticky ground
+    "shadow_mountain": 10.0,     # extremely hard to cross
+    "wall_of_ancients": inf,      # impassable
 }
