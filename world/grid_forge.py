@@ -150,5 +150,10 @@ def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
     
     return normalised
 
+# ----------------------------------------------------------------------
+# PUBLIC METHODS
+# ----------------------------------------------------------------------
+
+def terrain_at(self, glyph: PathGlyph) 
             
         
