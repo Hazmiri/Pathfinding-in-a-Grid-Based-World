@@ -125,3 +125,9 @@ def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
     Raises:
         ValueError: if a terrain name or code is unknown.
     """
+
+    normalised: List[List[str]] = []
+    
+    for row in raw_grid:
+        new_row = []
+        
