@@ -49,3 +49,8 @@ class Saladin_Pathfinder:
         self.world_map = world_map
         self.mode = mode
         self._min_cost = minimum_traversable_cost()
+
+# --------------------------------------------------------------------
+# PUBLIC INTERFACE
+# --------------------------------------------------------------------
+
