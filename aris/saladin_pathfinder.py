@@ -145,3 +145,11 @@ def _movement_cost (self, a: PathGlyph, b: PathGlyph) -> float:
     cost_a = TERRAIN_CATALOGUE [terrain_a]
     cost_b = TERRAIN_CATALOGUE [terrain_b]
     
+    # If either terrain is impassable, treat as infinite cost.
+    if cost_a == float ("inf") or cost_b == float ("inf"):
+        return float ("inf")
+    
+    base = 0.5 * (cost_a + cost_b)
+    return base * self._step_length (a, b)
+
+    
