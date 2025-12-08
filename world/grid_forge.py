@@ -217,4 +217,16 @@ def render_ascii(
         for x in range(self.width):
             glyph = PathGlyph (x, y)
             
-            
+            if hearth and glyph == hearth:
+                row_symbols.append ("A")  # Aris
+            elif pythonia and glyph == pythonia:
+                row_symbols.append ("P")
+            elif glyph in path_set:
+                row_symbols.append("*")
+            else:
+                terrain = self.terrain_at(glyph)
+                row_symbols.append(TERRAIN_SYMBOLS.get(terrain, "?"))
+                
+        lines.append ("".join(row_symbols))
+        
+    return "\n".join(lines)
