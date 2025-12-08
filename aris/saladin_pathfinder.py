@@ -160,3 +160,9 @@ def _step_length (a: PathGlyph, b: PathGlyph) -> float:
     Return 1.0 for cardinal moves and sqrt(2) for diagonal moves.
     
     """
+    dx = abs (a.x - b.x)
+    dy = abs (a.y - b.y)
+    if dx == 1 and dy == 1:
+        return SQRT2
+    return 1.0
+
