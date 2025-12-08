@@ -209,4 +209,12 @@ def render_ascii(
     
     Useful for quick debugging and demonstration.
     """
-        
+    path_set = set (path) if path else set ()
+    lines= []
+    
+    for y in range (self.height):
+        row_symbols = []
+        for x in range(self.width):
+            glyph = PathGlyph (x, y)
+            
+            
