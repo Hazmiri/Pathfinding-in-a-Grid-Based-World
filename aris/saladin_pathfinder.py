@@ -181,3 +181,9 @@ def _heuristic(self, a: PathGlyph, b: PathGlyph) -> float:
             Uses an octile distance scaled by the minimum terrain cost
             to maintain admissibility.
         """
+        dx = abs(a.x - b.x)
+        dy = abs(a.y - b.y)
+
+        if self.mode == "fewest_steps":
+            # Chebyshev distance: minimal number of 8-direction steps.
+            return float(max(dx, dy))
