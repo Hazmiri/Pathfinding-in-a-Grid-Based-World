@@ -75,6 +75,6 @@ def chart_course(
 
     g_score: Dict[PathGlyph, float] = {hearth: 0.0}
     f_score: Dict[PathGlyph, float] = {
-        hearth: self._heuristic(hearth, pythonia)
+        hearth: self._heuristic(hearth, pythonia) # Cost tracking (g and f)
     }   
     
