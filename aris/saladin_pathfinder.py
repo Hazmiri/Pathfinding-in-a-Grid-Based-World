@@ -41,3 +41,7 @@ class Saladin_Pathfinder:
         - Step cost depends on terrain difficulty and movement geaometry
         - Heuristic: Octile distance scaled by minimum terrain cost.
     """
+    
+    def __init__(self, world_map: Map_Anvil, mode: str = "lowest_energy"):
+        if mode not in ("fewest_steps", "lowest_energy"):
+            raise ValueError ("mode must be 'fewest_steps' or 'lowest_energy'.")
