@@ -194,5 +194,19 @@ def neighbours(self, glyph: PathGlyph) -> List [PathGlyph]:
 # ASCII RENDERING (FOR TESTING)
 # -----------------------------------------------------------------------
 
-            
+def render_ascii(
+    self, 
+    path: Optional [List[PathGlyph]] = None,
+    hearth: Optional [PathGlyph] = None,
+    pythonia: Optional [PathGlyph] = None,
+) -> str:
+    
+    """
+    Produce a human-readable ASCII rendering of the map.
+    Aris' s Hearth (start) = A
+    Pythonia (goal) = P
+    Path = *
+    
+    Useful for quick debugging and demonstration.
+    """
         
