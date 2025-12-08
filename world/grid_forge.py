@@ -130,4 +130,19 @@ def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
     
     for row in raw_grid:
         new_row = []
+        for cell in row:
+            
+            # If already a long name and valid --> accept.
+            
+            if is_valid_terrain(cell):
+                new_row.append(cell)
+                continue
+            
+            # Try short-code lookup.
+            
+            if cell in TERRAIN_SHORTCODES:
+                new_row.append(TERRAIN_SHORTCODES[cell])
+                continue
+            
+            
         
