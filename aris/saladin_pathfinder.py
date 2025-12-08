@@ -113,4 +113,9 @@ def chart_course(
             f_val = tentative_g + self._heuristic(neighbour, pythonia)
             f_score [neighbour] = f_val
             
-    
+            if neighbour not in open_set:
+                heapq.heappush(open_heap, (f_val, neighbour))
+                open_set.add(neighbour)
+                
+    # No path was found 
+    return None
