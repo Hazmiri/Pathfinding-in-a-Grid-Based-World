@@ -162,7 +162,8 @@ def _step_length (a: PathGlyph, b: PathGlyph) -> float:
     """
     dx = abs (a.x - b.x)
     dy = abs (a.y - b.y)
+    
     if dx == 1 and dy == 1:
         return SQRT2
+    
     return 1.0
-
