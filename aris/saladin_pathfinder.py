@@ -71,6 +71,6 @@ def chart_course(
     open_heap: List[Tuple[float, PathGlyph]] = [] # Priority Queue
     heapq.heappush(open_heap,(0.0, hearth)) 
     
-    came_from: Dict[PathGlyph, PathGlyph] = {}
+    came_from: Dict[PathGlyph, PathGlyph] = {} # Path Tracking
     
     
