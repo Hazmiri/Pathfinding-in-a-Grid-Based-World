@@ -32,4 +32,7 @@ class PathGlyph:
         x (int): horizontal coordinate (column index)
         y (int): vertical coordinate (row index)
     """
-   
+    x: int
+    y: int
+    
+    def coords (self) -> Tuple [int, int]:
