@@ -124,3 +124,18 @@ def chart_course(
 # COST AND HEURISTIC FUNCTION
 # ---------------------------------------------------------------------
 
+def _movement_cost (self, a: PathGlyph, b: PathGlyph) -> float:
+    
+    """
+    Determine the cost of moving from cell a to cell b.
+    
+    In fewest_steps mode:
+        Each move has a uniform cost of 1.
+        
+    In lowest_energy mode:
+        The cost is derived from the average terrain cost between the two
+        cells, scaled by step length (1 or sqrt(2)).
+    """
+    if self.mode == "fewest_steps":
+        return 1.0
+    
