@@ -170,5 +170,19 @@ def cost_at(self, glyph: PathGlyph) -> float:
     terrain = self.terrain_at(glyph)
     return TERRAIN_CATALOGUE[terrain]
 
+def neighbours(self, glyph: PathGlyph) -> List [PathGlyph]:
+    
+    """
+    Return all eight neighbouring cells (if within bounds).
+    """
+    offsets = [
+        (-1, 0), (1, 0), (0 ,-1), (0, 1),   # cardinal
+        (-1, -1), (1, -1), (-1, 1), (1, 1), # diagonals
+    ]
+    
+    result = []
+    
+    
+
             
         
