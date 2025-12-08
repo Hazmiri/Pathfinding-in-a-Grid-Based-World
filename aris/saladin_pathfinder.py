@@ -94,5 +94,10 @@ def chart_course(
         open_set.discard(current)
         closed_set.add(current)
         
-        
+        for neighbour in self.world_map.neighbours(current):
+            move_cost = self._movement_cost(current, neighbour)
+            if move_cost == float ("inf"):
+                # Impassable terrain, e.g. wall_of_ancients.
+                continue
+            
     
