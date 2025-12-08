@@ -35,4 +35,3 @@ if __name__ == "__main__":
     run_demo(mode="fewest_steps")
     print("\n=== Lowest energy mode ===")
     run_demo(mode="lowest_energy")
-
