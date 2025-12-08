@@ -182,6 +182,14 @@ def neighbours(self, glyph: PathGlyph) -> List [PathGlyph]:
     
     result = []
     
+    for dx, dy in offsets:
+        candidate = PathGlyph(glyph.x + dx, glyph.y + dy)
+        
+        if self.in_bounds(candidate):
+            result.append(candidate)
+            
+    return result
+    
     
 
             
