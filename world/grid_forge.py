@@ -144,5 +144,11 @@ def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
                 new_row.append(TERRAIN_SHORTCODES[cell])
                 continue
             
+            raise ValueError(f"Unknown terrain identifier: {cell}")
+        
+        normalised.append(new_row)
+    
+    return normalised
+
             
         
