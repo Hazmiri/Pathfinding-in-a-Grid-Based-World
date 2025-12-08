@@ -167,3 +167,17 @@ def _step_length (a: PathGlyph, b: PathGlyph) -> float:
         return SQRT2
     
     return 1.0
+
+def _heuristic(self, a: PathGlyph, b: PathGlyph) -> float: 
+    
+        """
+        Estimate the remaining cost from a to b.
+
+        In 'fewest_steps' mode:
+            Uses Chebyshev distance (max(dx, dy)), which corresponds to
+            the minimal number of moves with 8-directional movement.
+
+        In 'lowest_energy' mode:
+            Uses an octile distance scaled by the minimum terrain cost
+            to maintain admissibility.
+        """
