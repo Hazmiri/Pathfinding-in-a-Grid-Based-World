@@ -111,4 +111,8 @@ def _validate_structure(self, raw_grid: List[List[str]]) -> None:
             raise ValueError("Row in the map is not a lsit.")
         if len(row) != expected_row_length:
             raise ValueError("Map rows must all be the same length.")
-        
+
+# -----------------------------------------------------------------------
+# NORMALISATION: short-code --> long terrain name
+# -----------------------------------------------------------------------
+
