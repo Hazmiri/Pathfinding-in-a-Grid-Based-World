@@ -19,7 +19,7 @@ import heapq
 from math import sqrt
 from typing import Dict, List, Optional, Tuple, Set
 
-from runes import PathGlyph
+from world.runes import PathGlyph
 from world.grid_forge import Map_Anvil # adjust import path if needed
 from world.terrain_legends import TERRAIN_CATALOGUE, minimum_traversable_cost
 
