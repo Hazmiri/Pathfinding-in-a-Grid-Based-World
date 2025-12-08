@@ -54,3 +54,13 @@ class Saladin_Pathfinder:
 # PUBLIC INTERFACE
 # --------------------------------------------------------------------
 
+def chart_course(
+    self, hearth: PathGlyph, pythonia:PathGlyph
+) -> Optional [List[PathGlyph]]:
+    """
+    Compute an optimal path from hearth (start) to pythonia (goal).
+    
+    Returns:
+        A list of PathGlyphs forming the path, including both hearth and
+        pythonia, or None if no path can be found.
+    """
