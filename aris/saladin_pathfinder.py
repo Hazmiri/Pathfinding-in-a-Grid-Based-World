@@ -152,4 +152,11 @@ def _movement_cost (self, a: PathGlyph, b: PathGlyph) -> float:
     base = 0.5 * (cost_a + cost_b)
     return base * self._step_length (a, b)
 
+@staticmethod
+
+def _step_length (a: PathGlyph, b: PathGlyph) -> float:
     
+    """
+    Return 1.0 for cardinal moves and sqrt(2) for diagonal moves.
+    
+    """
