@@ -81,3 +81,18 @@ def chart_course(
     open_set: set[PathGlyph] = {hearth}
     closed_set: Set[PathGlyph] = set()
     
+    while open_heap:
+        current_f, current = heapq.heappop(open_heap)
+        
+        if current in closed_set:
+            #Skip stale entries.
+            continue
+        
+        if current == pythonia:
+            return self._reconstruct_path(came_from, current)
+        
+        open_set.discard(current)
+        closed_set.add(current)
+        
+        
+    
