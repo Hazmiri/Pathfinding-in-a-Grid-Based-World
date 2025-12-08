@@ -45,3 +45,7 @@ class Saladin_Pathfinder:
     def __init__(self, world_map: Map_Anvil, mode: str = "lowest_energy"):
         if mode not in ("fewest_steps", "lowest_energy"):
             raise ValueError ("mode must be 'fewest_steps' or 'lowest_energy'.")
+        
+        self.world_map = world_map
+        self.mode = mode
+        self._min_cost = minimum_traversable_cost()
