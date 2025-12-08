@@ -193,3 +193,20 @@ def _heuristic(self, a: PathGlyph, b: PathGlyph) -> float:
         D2 = SQRT2
         octile = D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
         return octile * self._min_cost
+    
+# ------------------------------------------------------------
+# PATH RECONSTRUCTION
+# ------------------------------------------------------------
+@staticmethod
+def _reconstruct_path(
+    came_from: Dict[PathGlyph, PathGlyph], current: PathGlyph
+) -> List[PathGlyph]:
+    """
+    Reconstruct the path by following parent links from goal back to start.
+    """
+    path: List[PathGlyph] = [current]
+    while current in came_from:
+        current = came_from[current]
+        path.append(current)
+    path.reverse()
+    return path
