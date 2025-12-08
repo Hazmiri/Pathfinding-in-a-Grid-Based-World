@@ -108,5 +108,9 @@ def chart_course(
             if tentative_g >= g_score.get(neighbour, float("inf")):
                 continue
             
+            came_from [neighbour] = current
+            g_score [neighbour] = tentative_g
+            f_val = tentative_g + self._heuristic(neighbour, pythonia)
+            f_score [neighbour] = f_val
             
     
