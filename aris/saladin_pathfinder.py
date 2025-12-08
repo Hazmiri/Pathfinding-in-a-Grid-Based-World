@@ -139,3 +139,9 @@ def _movement_cost (self, a: PathGlyph, b: PathGlyph) -> float:
     if self.mode == "fewest_steps":
         return 1.0
     
+    # lowest_energy mode
+    terrain_a = self.world_map.terrain_at(a)
+    terrain_b = self.world_map.terrain_at(b)
+    cost_a = TERRAIN_CATALOGUE [terrain_a]
+    cost_b = TERRAIN_CATALOGUE [terrain_b]
+    
