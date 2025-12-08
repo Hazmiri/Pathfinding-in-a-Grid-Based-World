@@ -100,4 +100,13 @@ def chart_course(
                 # Impassable terrain, e.g. wall_of_ancients.
                 continue
             
+            tentative_g = g_score[current] + move_cost
+            
+            # If you have already found a better path to this neighbour,
+            # ignore this one.
+            
+            if tentative_g >= g_score.get(neighbour, float("inf")):
+                continue
+            
+            
     
