@@ -36,3 +36,10 @@ class PathGlyph:
     y: int
     
     def coords (self) -> Tuple [int, int]:
+        """
+        Return (x, y) as a coordinate tuple for convenience.
+        """
+        return (self.x, self.y)
+    
+    def _repr_(self) -> str:
+        
