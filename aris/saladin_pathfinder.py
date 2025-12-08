@@ -25,3 +25,19 @@ from world.terrain_legends import TERRAIN_CATALOGUE, minimum_traversable_cost
 
 SQRT2 = sqrt(2.0)
 
+class Saladin_Pathfinder:
+    """
+    Saladin_Pathfinder executes an A* search over the Map_Anvil grid.
+    
+    Parameters:
+        world_map (Map_Anvil): the forged world grid.
+        mode (str): 'fewest_steps' or 'lowest_energy'.
+    
+    In 'fewest_steps' mode:
+        - Step cost is always 1.
+        - Heuristic: Chebyshev distance (max(dx, dy)).
+        
+    In 'lowest_energy' mode:
+        - Step cost depends on terrain difficulty and movement geaometry
+        - Heuristic: Octile distance scaled by minimum terrain cost.
+    """
