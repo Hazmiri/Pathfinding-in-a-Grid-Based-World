@@ -72,5 +72,9 @@ def chart_course(
     heapq.heappush(open_heap,(0.0, hearth)) 
     
     came_from: Dict[PathGlyph, PathGlyph] = {} # Path Tracking
-    
+
+    g_score: Dict[PathGlyph, float] = {hearth: 0.0}
+    f_score: Dict[PathGlyph, float] = {
+        hearth: self._heuristic(hearth, pythonia)
+    }   
     
