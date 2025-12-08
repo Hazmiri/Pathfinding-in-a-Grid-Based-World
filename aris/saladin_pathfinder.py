@@ -13,3 +13,9 @@ The algorithm operates on a Map_Anvil instance, which provides information
 about terrain costs and neighbour accessibility.
 
 """
+from __future__ import annotations
+
+import heapq
+from math import sqrt
+from typing import Dict, List, Optional, Tuple, Set
+
