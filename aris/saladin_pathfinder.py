@@ -64,3 +64,6 @@ def chart_course(
         A list of PathGlyphs forming the path, including both hearth and
         pythonia, or None if no path can be found.
     """
+    if hearth == pythonia:
+        # Trivial case: already at destination.
+        return [hearth]
