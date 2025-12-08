@@ -42,4 +42,8 @@ class PathGlyph:
         return (self.x, self.y)
     
     def _repr_(self) -> str:
-        
+        """
+        Return a concise symbolic representation for debugging and
+        logging.
+        """
+        return f"Glyph({self.x},{self.y})"
