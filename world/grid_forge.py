@@ -189,8 +189,10 @@ def neighbours(self, glyph: PathGlyph) -> List [PathGlyph]:
             result.append(candidate)
             
     return result
-    
-    
+
+# -----------------------------------------------------------------------
+# ASCII RENDERING (FOR TESTING)
+# -----------------------------------------------------------------------
 
             
         
