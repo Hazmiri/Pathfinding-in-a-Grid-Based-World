@@ -67,3 +67,6 @@ def chart_course(
     if hearth == pythonia:
         # Trivial case: already at destination.
         return [hearth]
+    
+    open_heap: List[Tuple[float, PathGlyph]] = []
+    heapq.heappush(open_heap,(0.0, hearth)) 
