@@ -154,6 +154,21 @@ def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
 # PUBLIC METHODS
 # ----------------------------------------------------------------------
 
-def terrain_at(self, glyph: PathGlyph) 
+def terrain_at(self, glyph: PathGlyph) -> str:
+    
+    """
+    Return the terrain type at the given glyph.
+    """
+    return self.grid[glyph.y][glyph.x]
+
+def cost_at(self, glyph: PathGlyph) -> float:
+    
+    """
+    Return the movement cost associated with the terrain at the given 
+    glyph.
+    """
+    terrain = self.terrain_at(glyph)
+    return TERRAIN_CATALOGUE[terrain]
+
             
         
