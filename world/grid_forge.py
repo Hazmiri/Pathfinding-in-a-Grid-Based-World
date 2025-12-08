@@ -116,3 +116,12 @@ def _validate_structure(self, raw_grid: List[List[str]]) -> None:
 # NORMALISATION: short-code --> long terrain name
 # -----------------------------------------------------------------------
 
+def _normalise_grid(self, raw_grid: List[List[str]]) -> List[List[str]]:
+    """
+    Convert terrain short codes to full terrain names.
+    Any value that is not a valid full name will be checked against the 
+    short codes.
+    
+    Raises:
+        ValueError: if a terrain name or code is unknown.
+    """
