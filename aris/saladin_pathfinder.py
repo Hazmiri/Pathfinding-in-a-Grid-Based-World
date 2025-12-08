@@ -70,3 +70,7 @@ def chart_course(
     
     open_heap: List[Tuple[float, PathGlyph]] = []
     heapq.heappush(open_heap,(0.0, hearth)) 
+    
+    came_from: Dict[PathGlyph, PathGlyph] = {}
+    
+    
