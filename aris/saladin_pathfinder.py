@@ -78,3 +78,6 @@ def chart_course(
         hearth: self._heuristic(hearth, pythonia) # Cost tracking (g and f)
     }   
     
+    open_set: set[PathGlyph] = {hearth}
+    closed_set: Set[PathGlyph] = set()
+    
