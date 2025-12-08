@@ -187,3 +187,9 @@ def _heuristic(self, a: PathGlyph, b: PathGlyph) -> float:
         if self.mode == "fewest_steps":
             # Chebyshev distance: minimal number of 8-direction steps.
             return float(max(dx, dy))
+        
+        # lowest_energy: octile distance * minimum traversable cost
+        D = 1.0
+        D2 = SQRT2
+        octile = D * (dx + dy) + (D2 - 2 * D) * min(dx, dy)
+        return octile * self._min_cost
