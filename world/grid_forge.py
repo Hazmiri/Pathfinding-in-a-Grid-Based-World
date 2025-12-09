@@ -11,7 +11,7 @@ import json
 from typing import List, Dict, Optional, Tuple
 from pathlib import Path
 
-from runes import pathGlyph
+from runes import PathGlyph
 from terrain_legends import (
     TERRAIN_CATALOGUE,
     TERRAIN_SYMBOLS,
