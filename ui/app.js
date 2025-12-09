@@ -44,7 +44,8 @@ async function loadDefaultMap() {
 
         uploadedFileId = data.file_id;
         setStatus("Default world loaded.");
-        document.getElementById("asciiArea").textContent = "Default world loaded. Ready to pathfind.";
+        document.getElementById("asciiArea").textContent =
+            "Default world loaded. Ready to pathfind.";
 
     } catch (err) {
         setStatus("Error loading default world: " + err);
@@ -128,10 +129,11 @@ document.getElementById("runBtn").addEventListener("click", async function () {
         }
 
         // Show ASCII map
-        document.getElementById("asciiArea").textContent = data.ascii || "No path found.";
+        document.getElementById("asciiArea").textContent =
+            data.ascii || "No path found.";
 
-        // Show cost
-        if (data.cost === null) {
+        // Show cost & steps
+        if (data.cost === null || data.path === null) {
             document.getElementById("costArea").textContent = "No path found.";
         } else {
             document.getElementById("costArea").textContent =
@@ -139,9 +141,6 @@ document.getElementById("runBtn").addEventListener("click", async function () {
         }
 
         // Draw coloured grid
-        container.style.opacity = 0;
-        setTimeout(() => container.style.opacity = 1, 100);
-
         if (data.ascii) {
             renderGridFromAscii(data.ascii);
         }
@@ -159,6 +158,11 @@ document.getElementById("runBtn").addEventListener("click", async function () {
 
 function renderGridFromAscii(ascii) {
     const container = document.getElementById("gridView");
+    if (!container) {
+        console.error("gridView element not found in HTML.");
+        return;
+    }
+
     container.innerHTML = "";
 
     const rows = ascii.trim().split("\n");
@@ -190,10 +194,6 @@ function renderGridFromAscii(ascii) {
         container.appendChild(rowDiv);
     });
 }
-
-setTimeout(() => {
-    rowDiv.style.opacity = 1;
-}, 50);
 
 // ----------------------------------------------------
 // AUTO START
