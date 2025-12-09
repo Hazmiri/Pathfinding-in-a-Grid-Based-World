@@ -1,73 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Aris Pathfinder</title>
-    <link rel="stylesheet" href="/ui/styles.css">
-</head>
+    <link rel="stylesheet" href="/ui/styles.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div>
+          <h1 class="title">🧭 Aris Pathfinder</h1>
+          <p class="subtitle">
+            A* Navigation Across the Mystical Lands of Aris
+          </p>
+        </div>
 
-<div class="container">
+        <div class="aris-banner">
+          <img
+            src="/ui/assets/aris_photo.png"
+            alt="Aris, the exploration cat"
+            class="aris-photo"
+          />
+          <div class="aris-caption">Aris – your exploration guide</div>
+        </div>
+      </header>
 
-    <h1 class="title">🧭 Aris Pathfinder</h1>
-    <p class="subtitle">A* Navigation Across the Mystical Lands of Aris</p>
-
-    <div class="card">
+      <div class="card">
         <h2>1. Map Upload</h2>
 
-        <p>Your default map is already loaded.  
-           If you want to import another world, upload below:</p>
+        <p>
+          Your default world is loaded automatically.<br />
+          If you want to explore a different land, upload another map:
+        </p>
 
-        <input type="file" id="mapUpload" accept=".json">
+        <input type="file" id="mapUpload" accept=".json" />
         <p id="statusArea" class="status">Waiting...</p>
-    </div>
+      </div>
 
-    <div class="card">
+      <div class="card">
         <h2>2. Pathfinder Settings</h2>
 
         <div class="coords">
-            <div>
-                <label>Start X</label>
-                <input type="number" id="startX" value="0">
-            </div>
-            <div>
-                <label>Start Y</label>
-                <input type="number" id="startY" value="0">
-            </div>
-            <div>
-                <label>Goal X</label>
-                <input type="number" id="goalX" value="10">
-            </div>
-            <div>
-                <label>Goal Y</label>
-                <input type="number" id="goalY" value="10">
-            </div>
+          <div>
+            <label>Start X</label>
+            <input type="number" id="startX" value="0" />
+          </div>
+          <div>
+            <label>Start Y</label>
+            <input type="number" id="startY" value="2" />
+          </div>
+          <div>
+            <label>Goal X</label>
+            <input type="number" id="goalX" value="24" />
+          </div>
+          <div>
+            <label>Goal Y</label>
+            <input type="number" id="goalY" value="22" />
+          </div>
         </div>
 
         <label>Mode:</label>
         <select id="mode">
-            <option value="fewest_steps">Fewest Steps</option>
-            <option value="lowest_energy">Lowest Energy</option>
+          <option value="fewest_steps">Fewest Steps</option>
+          <option value="lowest_energy">Lowest Energy</option>
         </select>
 
-        <button id="runBtn" class="run-btn">Run Pathfinder</button>
+        <button id="runBtn" class="run-btn">Run Saladin Pathfinder</button>
 
         <p id="costArea" class="cost">Cost: –</p>
-    </div>
+      </div>
 
-    <div class="card">
+      <div class="card">
         <h2>3. ASCII Map</h2>
         <pre id="asciiArea" class="ascii-box">Loading default world...</pre>
-    </div>
+      </div>
 
-    <div class="card">
+      <div class="card">
         <h2>4. Visual Grid</h2>
         <div id="gridView" class="grid-container"></div>
+      </div>
     </div>
 
-</div>
-
-<script src="/ui/app.js"></script>
-</body>
+    <script src="/ui/app.js"></script>
+  </body>
 </html>
