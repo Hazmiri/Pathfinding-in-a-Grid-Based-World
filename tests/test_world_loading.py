@@ -60,3 +60,19 @@ def test_non_rectangular_map_rejected(tmp_path):
     """)
     with pytest.raises(ValueError):
         Map_Anvil(str(file))
+        
+def test_ascii_render_structure(tmp_path):
+    """ASCII rendering must produce lines equal to map height."""
+    file = tmp_path / "map.json"
+    file.write_text("""
+    [
+        ["WG", "WG", "WG"],
+        ["WG", "WG", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    rendered = world.render_ascii()
+    lines = rendered.split("\n")
+    assert len(lines) == 2
+    assert all(len(line) == 3 for line in lines)
