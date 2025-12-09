@@ -23,6 +23,7 @@ def test_load_long_names(tmp_path):
     assert world.height == 2
     assert world.terrain_at(PathGlyph(0, 0)) == "whispering_grassland"
     
+    
 def test_load_short_codes(tmp_path):
     """Ensure short codes convert correctly to long names."""
     file = tmp_path / "short_map.json"
@@ -32,7 +33,6 @@ def test_load_short_codes(tmp_path):
         ["MM", "WA"]
     ]
     """)
-
     world = Map_Anvil(str(file))
     assert world.terrain_at(PathGlyph(0, 0)) == "whispering_grassland"
     assert world.terrain_at(PathGlyph(1, 1)) == "wall_of_ancients"
