@@ -1,15 +1,85 @@
 body {
-    font-family: 'Consolas', monospace;
+    font-family: "Consolas", "Courier New", monospace;
+}
+
+.aris-photo {
+    max-width: 120px;
+    border: 3px solid #ffc107;
 }
 
 .ascii-box {
     background: #111;
-    padding: 20px;
+    padding: 16px;
     border-radius: 8px;
-    height: 500px;
+    height: 200px;
     overflow-y: auto;
-    font-size: 16px;
+    font-size: 14px;
     white-space: pre;
     color: #0f0;
     border: 1px solid #333;
+}
+
+/* Grid container */
+.grid-container {
+    background: #111;
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid #333;
+    min-height: 220px;
+    display: inline-block;
+}
+
+/* Each cell in the grid */
+.grid-cell {
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: 1px solid #222;
+}
+
+/* Use CSS Grid to lay out the cells */
+.grid-row {
+    display: flex;
+}
+
+/* Terrain colours */
+.terrain-grass {
+    background: #2e7d32; /* whispering_grassland */
+}
+
+.terrain-forest {
+    background: #1b5e20; /* forest_of_reflections */
+}
+
+.terrain-desert {
+    background: #f4a460; /* desert_of_doom */
+}
+
+.terrain-ice {
+    background: #81d4fa; /* frozen_lake */
+}
+
+.terrain-marsh {
+    background: #4e6b4e; /* muddy_marsh */
+}
+
+.terrain-mountain {
+    background: #757575; /* shadow_mountain */
+}
+
+.terrain-wall {
+    background: #000;     /* wall_of_ancients */
+}
+
+/* Path, start, goal overlays */
+.cell-path {
+    background: #ffd600;
+}
+
+.cell-start {
+    background: #00e5ff;
+}
+
+.cell-goal {
+    background: #ff4081;
 }
