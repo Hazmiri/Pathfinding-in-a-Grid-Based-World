@@ -26,3 +26,23 @@ def test_steps_simple_straight_line(tmp_path):
     path = pathfinder.chart_course(hearth, pythonia)
     assert path is not None
     assert len(path) == 4  # 3 steps + start
+    
+def test_steps_diagonal_is_one_move(tmp_path):
+    """Diagonal movement must count as 1 step in this mode."""
+    file = tmp_path / "diag.json"
+    file.write_text("""
+    [
+        ["WG", "WG"],
+        ["WG", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    pathfinder = Saladin_Pathfinder(world, mode="fewest_steps")
+
+    hearth = PathGlyph(0, 0)
+    pythonia = PathGlyph(1, 1)
+
+    path = pathfinder.chart_course(hearth, pythonia)
+    assert path is not None
+    assert len(path) == 2  # one diagonal step
