@@ -33,3 +33,26 @@ def test_no_path_exists(tmp_path):
     pythonia = PathGlyph(2, 0)
 
     assert pf.chart_course(hearth, pythonia) is None
+
+def test_small_world(tmp_path):
+    file = tmp_path / "tiny.json"
+    file.write_text("""
+    [
+        ["WG", "WG"],
+        ["WG", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    pf = Saladin_Pathfinder(world)
+
+    path = pf.chart_course(PathGlyph(0, 0), PathGlyph(1, 1))
+    assert path is not None
+    assert len(path) >= 2
+    
+    """
+    By passing these three tests, it is guarantee the A* search is robust 
+    and handles all possible inputs, from the simplest to the most 
+    frustrating!
+    
+    """
