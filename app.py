@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory, render_template_string
 from werkzeug.utils import secure_filename
 import os
 import uuid
@@ -125,10 +125,22 @@ def ascii_preview():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+    
+# ----------------------------------------------------------
+# UI ROUTES – Serve the frontend (index.html, CSS, JS, images)
+# ----------------------------------------------------------
+@app.route("/")
+def index():
+    return send_from_directory("ui", "index.html")
 
+
+@app.route("/<path:filename>")
+def ui_static(filename):
+    return send_from_directory("ui", filename)
 
 # ============================================================
 # FLASK APP STARTUP
 # ============================================================
+
 if __name__ == "__main__":
     app.run(debug=True)
