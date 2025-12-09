@@ -17,3 +17,19 @@ def test_start_equals_goal(tmp_path):
     hearth = pythonia = PathGlyph(0, 0)
     path = pf.chart_course(hearth, pythonia)
     assert path == [hearth]
+    
+def test_no_path_exists(tmp_path):
+    file = tmp_path / "nop.json"
+    file.write_text("""
+    [
+        ["WG", "WA", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    pf = Saladin_Pathfinder(world)
+
+    hearth = PathGlyph(0, 0)
+    pythonia = PathGlyph(2, 0)
+
+    assert pf.chart_course(hearth, pythonia) is None
