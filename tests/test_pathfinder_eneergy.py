@@ -35,3 +35,22 @@ def test_energy_prefers_low_cost_cells(tmp_path):
     # Path should move DOWN then across then UP
     turned_path = [g.coords() for g in path]
     assert (1, 1) not in turned_path  # avoid the centre Desert_of_Doom row
+    
+def test_energy_blocked_terrain(tmp_path):
+    """Must not attempt to cross impassable terrain."""
+    file = tmp_path / "impass.json"
+    file.write_text("""
+    [
+        ["WG", "WA", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    pf = Saladin_Pathfinder(world, mode="lowest_energy")
+
+    hearth = PathGlyph(0, 0)
+    pythonia = PathGlyph(2, 0)
+
+    path = pf.chart_course(hearth, pythonia)
+    assert path is None  # the wall blocks all paths 
+       
