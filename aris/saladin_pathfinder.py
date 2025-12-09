@@ -109,7 +109,8 @@ class Saladin_Pathfinder:
             return distance
         else:
             # Lowest-cost walkable terrain
-            lowest = minimum_traversable_cost("whispering_grassland")
+            lowest = minimum_traversable_cost()
+
             return distance * lowest
 
     def _reconstruct_path(

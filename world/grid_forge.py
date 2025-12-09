@@ -106,7 +106,8 @@ class Map_Anvil:
         Impassable terrain is 'wall_of_ancients' (WA).
         """
         terrain = self.grid[y][x]
-        return minimum_traversable_cost(terrain) < float('inf')
+        return TERRAIN_CATALOGUE[self.grid[y][x]] < float("inf")
+
 
 
 
