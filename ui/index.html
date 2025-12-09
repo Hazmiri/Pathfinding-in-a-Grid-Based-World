@@ -3,91 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Aris Pathfinder</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Bootstrap just for nicer default styling -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/ui/styles.css">
 </head>
 
-<body class="bg-dark text-light">
-<div class="container py-4">
+<body>
 
-    <h1 class="text-center mb-3">🐾 Aris Pathfinder</h1>
-    <p class="text-center text-secondary">
-        Upload a world map, choose a strategy, and let Aris navigate the realm.
-    </p>
+<div class="container">
 
-    <div class="row mt-4">
+    <h1 class="title">🧭 Aris Pathfinder</h1>
+    <p class="subtitle">A* Navigation Across the Mystical Lands of Aris</p>
 
-        <!-- LEFT CONTROL PANEL -->
-        <div class="col-md-4 mb-4">
-            <div class="card bg-secondary text-light p-3">
+    <div class="card">
+        <h2>1. Map Upload</h2>
 
-                <h5 class="mb-2">World Upload</h5>
-                <input type="file" id="mapUpload" class="form-control mb-3"
-                       accept=".json,application/json">
+        <p>Your default map is already loaded.  
+           If you want to import another world, upload below:</p>
 
-                <h6 class="mt-2">Pathfinding Mode</h6>
-                <select id="mode" class="form-select mb-3">
-                    <option value="fewest_steps">Fewest Steps</option>
-                    <option value="lowest_energy">Lowest Energy</option>
-                </select>
-
-                <h6>Start (hearth)</h6>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">x</span>
-                    <input id="startX" type="number" class="form-control" value="0">
-                    <span class="input-group-text">y</span>
-                    <input id="startY" type="number" class="form-control" value="0">
-                </div>
-
-                <h6>Goal (pythonia)</h6>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">x</span>
-                    <input id="goalX" type="number" class="form-control" value="3">
-                    <span class="input-group-text">y</span>
-                    <input id="goalY" type="number" class="form-control" value="0">
-                </div>
-
-                <button class="btn btn-light w-100 mb-3" id="runBtn">
-                    Run Saladin Pathfinder
-                </button>
-
-                <div id="statusArea" class="small text-warning"></div>
-
-                <hr class="text-light">
-
-                <div class="text-center">
-                    <img src="assets/aris_photo.png"
-                         class="img-fluid rounded-circle aris-photo"
-                         alt="Aris the explorer">
-                    <p class="mt-2 small">
-                        Aris the exploration robot traverses whispering grasslands,
-                        deserts of doom, and shadow mountains.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT VISUAL PANEL -->
-        <div class="col-md-8">
-            <h5>Fantasy Grid View</h5>
-            <div id="gridView" class="grid-container mb-3">
-                <!-- cells will be inserted here by app.js -->
-            </div>
-
-            <h5>ASCII Map Output</h5>
-            <pre id="asciiArea" class="ascii-box">Awaiting map...</pre>
-
-            <h5 class="mt-3">Path Summary</h5>
-            <div id="costArea" class="text-info small">
-                No path computed yet.
-            </div>
-        </div>
-
+        <input type="file" id="mapUpload" accept=".json">
+        <p id="statusArea" class="status">Waiting...</p>
     </div>
+
+    <div class="card">
+        <h2>2. Pathfinder Settings</h2>
+
+        <div class="coords">
+            <div>
+                <label>Start X</label>
+                <input type="number" id="startX" value="0">
+            </div>
+            <div>
+                <label>Start Y</label>
+                <input type="number" id="startY" value="0">
+            </div>
+            <div>
+                <label>Goal X</label>
+                <input type="number" id="goalX" value="10">
+            </div>
+            <div>
+                <label>Goal Y</label>
+                <input type="number" id="goalY" value="10">
+            </div>
+        </div>
+
+        <label>Mode:</label>
+        <select id="mode">
+            <option value="fewest_steps">Fewest Steps</option>
+            <option value="lowest_energy">Lowest Energy</option>
+        </select>
+
+        <button id="runBtn" class="run-btn">Run Pathfinder</button>
+
+        <p id="costArea" class="cost">Cost: –</p>
+    </div>
+
+    <div class="card">
+        <h2>3. ASCII Map</h2>
+        <pre id="asciiArea" class="ascii-box">Loading default world...</pre>
+    </div>
+
+    <div class="card">
+        <h2>4. Visual Grid</h2>
+        <div id="gridView" class="grid-container"></div>
+    </div>
+
 </div>
 
-<script src="app.js"></script>
+<script src="/ui/app.js"></script>
 </body>
 </html>
