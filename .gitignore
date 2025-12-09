@@ -1,2 +1,23 @@
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+
+# VSCode
+.vscode/
+
+# Flask uploads
+*.json
+!default_world.json
+!demo_world.json
+
+# Temporary files
+.tmp/
+*.tmp
+
+# pytest cache
+.pytest_cache/
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
