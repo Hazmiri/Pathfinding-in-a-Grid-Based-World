@@ -47,3 +47,11 @@ class PathGlyph:
         logging.
         """
         return f"Glyph({self.x},{self.y})"
+    
+    def is_diagonal_to(self, other: "PathGlyph") -> bool:
+        """
+        Returns True if movement from this glyph to 'other' is diagonal.
+        """
+        return abs(self.x - other.x) == 1 and abs(self.y - other.y) == 1
+
+    
