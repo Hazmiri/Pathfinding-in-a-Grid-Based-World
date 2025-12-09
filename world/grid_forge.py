@@ -100,19 +100,32 @@ class Map_Anvil:
     def in_bounds(self, glyph: PathGlyph) -> bool:
         return 0 <= glyph.x < self.width and 0 <= glyph.y < self.height
 
-    def neighbours(self, glyph: PathGlyph):
-        offsets = [
-            (-1, 0), (1, 0), (0, -1), (0, 1),
-            (-1, -1), (1, -1), (-1, 1), (1, 1)
+    def neighbours(self, glyph: PathGlyph) -> List[PathGlyph]:
+        """
+        Returns all 8 adjacent cells, but ONLY those that are inside the map
+        AND are traversable terrain (not WA).
+        """
+        dirs = [
+            (-1, -1), (0, -1), (1, -1),
+            (-1,  0),          (1,  0),
+            (-1,  1), (0,  1), (1,  1),
         ]
 
-        result = []
-        for dx, dy in offsets:
-            candidate = PathGlyph(glyph.x + dx, glyph.y + dy)
-            if self.in_bounds(candidate):
-                result.append(candidate)
+        results = []
 
-        return result
+        for dx, dy in dirs:
+            nx, ny = glyph.x + dx, glyph.y + dy
+
+            if not self.in_bounds(nx, ny):
+                continue
+
+            # Skip impassable terrain
+            if not self.is_traversable(nx, ny):
+                continue
+
+            results.append(PathGlyph(nx, ny))
+
+        return results
 
     def render_ascii(
         self,
