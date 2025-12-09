@@ -100,6 +100,15 @@ class Map_Anvil:
     def in_bounds(self, x: int, y: int) -> bool:
         return 0 <= y < self.height and 0 <= x < self.width
 
+    def is_traversable(self, x: int, y: int) -> bool:
+        """
+        Returns True if the cell at (x, y) is walkable.
+        Impassable terrain is 'wall_of_ancients' (WA).
+        """
+        terrain = self.grid[y][x]
+        return minimum_traversable_cost(terrain) < float('inf')
+
+
 
     def neighbours(self, glyph: PathGlyph) -> List[PathGlyph]:
         """
