@@ -12,6 +12,39 @@ body {
     margin: auto;
 }
 
+/* Header with Aris */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.aris-banner {
+    text-align: center;
+}
+
+.aris-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #7ddcff;
+    box-shadow: 0 0 12px #7ddcffaa;
+}
+
+.aris-caption {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #9ac7ff;
+    font-style: italic;
+}
+
+
+
+
+
+
 .title {
     text-align: center;
     font-size: 48px;
@@ -137,3 +170,5 @@ input[type="file"] {
 .cell-path         { background: #ff5252; }
 .cell-start        { background: #2979ff; }
 .cell-goal         { background: #00e676; }
+
+
