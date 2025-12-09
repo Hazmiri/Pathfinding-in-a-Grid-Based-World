@@ -19,3 +19,8 @@ def test_load_long_names(tmp_path):
         ["muddy_marsh", "wall_of_ancients"]
     ]
     """)
+    
+    world = Map_Anvil(str(file))
+    assert world.width == 2
+    assert world.height == 2
+    assert world.terrain_at(PathGlyph(0, 0)) == "whispering_grassland"
