@@ -35,6 +35,13 @@ class PathGlyph:
     x: int
     y: int
     
+    def __lt__(self, other: "PathGlyph") -> bool:
+        """
+        Required so heapq can compare PathGlyph objects when priorities tie.
+        """
+        return (self.x, self.y) < (other.x, other.y)
+
+    
     def coords (self) -> Tuple [int, int]:
         """
         Return (x, y) as a coordinate tuple for convenience.
