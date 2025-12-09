@@ -76,3 +76,5 @@ def test_ascii_render_structure(tmp_path):
     lines = rendered.split("\n")
     assert len(lines) == 2
     assert all(len(line) == 3 for line in lines)
+    
+    
