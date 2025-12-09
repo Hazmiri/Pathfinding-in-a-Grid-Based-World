@@ -1,85 +1,139 @@
+/* Global Layout */
 body {
-    font-family: "Consolas", "Courier New", monospace;
+    background: #0f0f17;
+    color: #e8e8e8;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 20px;
 }
 
-.aris-photo {
-    max-width: 120px;
-    border: 3px solid #ffc107;
+.container {
+    max-width: 1100px;
+    margin: auto;
 }
 
+.title {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 0;
+    color: #7ddcff;
+}
+
+.subtitle {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: #9ac7ff;
+}
+
+/* Card Sections */
+.card {
+    background: #1b1b29;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 10px #0008;
+    border: 1px solid #2b2b3d;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #7ddcff;
+}
+
+/* Inputs */
+input, select {
+    background: #0f0f17;
+    border: 1px solid #7ddcff55;
+    padding: 6px;
+    color: white;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    border: none;
+}
+
+.coords {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.coords div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Run Button */
+.run-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #0077ff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.run-btn:hover {
+    background: #3399ff;
+    box-shadow: 0 0 10px #1a8cff;
+}
+
+/* Status & Cost */
+.status {
+    margin-top: 10px;
+    font-style: italic;
+    color: #9ac7ff;
+}
+
+.cost {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ffdf7a;
+}
+
+/* ASCII Box */
 .ascii-box {
-    background: #111;
-    padding: 16px;
-    border-radius: 8px;
-    height: 200px;
-    overflow-y: auto;
-    font-size: 14px;
+    background: #0f0f17;
+    padding: 15px;
+    border-radius: 6px;
     white-space: pre;
-    color: #0f0;
+    overflow-x: auto;
     border: 1px solid #333;
 }
 
-/* Grid container */
+/* Grid Rendering */
 .grid-container {
-    background: #111;
-    border-radius: 8px;
-    padding: 8px;
-    border: 1px solid #333;
-    min-height: 220px;
     display: inline-block;
+    margin-top: 15px;
 }
 
-/* Each cell in the grid */
-.grid-cell {
-    width: 20px;
-    height: 20px;
-    box-sizing: border-box;
-    border: 1px solid #222;
-}
-
-/* Use CSS Grid to lay out the cells */
 .grid-row {
     display: flex;
 }
 
-/* Terrain colours */
-.terrain-grass {
-    background: #2e7d32; /* whispering_grassland */
+.grid-cell {
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+    border-radius: 3px;
 }
 
-.terrain-forest {
-    background: #1b5e20; /* forest_of_reflections */
-}
+/* Terrain Colors */
+.terrain-grass     { background: #4caf50; }
+.terrain-forest    { background: #2e7d32; }
+.terrain-desert    { background: #f2c94c; }
+.terrain-ice       { background: #81d4fa; }
+.terrain-marsh     { background: #795548; }
+.terrain-mountain  { background: #616161; }
+.terrain-wall      { background: #212121; }
 
-.terrain-desert {
-    background: #f4a460; /* desert_of_doom */
-}
-
-.terrain-ice {
-    background: #81d4fa; /* frozen_lake */
-}
-
-.terrain-marsh {
-    background: #4e6b4e; /* muddy_marsh */
-}
-
-.terrain-mountain {
-    background: #757575; /* shadow_mountain */
-}
-
-.terrain-wall {
-    background: #000;     /* wall_of_ancients */
-}
-
-/* Path, start, goal overlays */
-.cell-path {
-    background: #ffd600;
-}
-
-.cell-start {
-    background: #00e5ff;
-}
-
-.cell-goal {
-    background: #ff4081;
-}
+/* Special Cells */
+.cell-path         { background: #ff5252; }
+.cell-start        { background: #2979ff; }
+.cell-goal         { background: #00e676; }
