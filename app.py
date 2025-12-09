@@ -12,6 +12,13 @@ app = Flask(__name__, static_folder="ui", static_url_path="")
 UPLOAD_FOLDER = tempfile.gettempdir()
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# Rout that allowed the broser to load files
+
+@app.route("/ui/<path:filename>")
+def ui_files(filename):
+    return send_from_directory("ui", filename)
+
+
 
 # 🔹 Serve the UI
 @app.route("/")
