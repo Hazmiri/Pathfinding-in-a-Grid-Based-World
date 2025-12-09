@@ -12,12 +12,13 @@ from typing import List, Dict, Optional, Tuple
 from pathlib import Path
 
 from runes.runes import PathGlyph
-from terrain_legends import (
+from world.terrain_legends import (
     TERRAIN_CATALOGUE,
     TERRAIN_SYMBOLS,
     is_valid_terrain,
     minimum_traversable_cost,
 )
+
 
 # ---------------------------------------------------------
 # SHORT CODES FOR CONVENIENT JSON MAPS
