@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aris Pathfinder</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body class="bg-dark text-light">
+    <div class="container py-4">
+      <h1 class="text-center mb-4">🐾 Aris Pathfinder</h1>
+      <p class="text-center text-secondary">
+        Upload a map, choose a mode, and let Aris find the safest path.
+      </p>
+
+      <div class="row mt-4">
+        <!-- LEFT PANEL -->
+        <div class="col-md-4">
+          <div class="card bg-secondary p-3">
+            <h5>Upload Map</h5>
+            <input type="file" id="mapUpload" class="form-control mb-3" />
+
+            <label>Pathfinding Mode:</label>
+            <select id="mode" class="form-select mb-3">
+              <option value="fewest_steps">Fewest Steps</option>
+              <option value="lowest_energy">Lowest Energy</option>
+            </select>
+
+            <h6>Start Position</h6>
+            <input
+              id="startX"
+              type="number"
+              class="form-control mb-2"
+              placeholder="x"
+            />
+            <input
+              id="startY"
+              type="number"
+              class="form-control mb-3"
+              placeholder="y"
+            />
+
+            <h6>Goal Position</h6>
+            <input
+              id="goalX"
+              type="number"
+              class="form-control mb-2"
+              placeholder="x"
+            />
+            <input
+              id="goalY"
+              type="number"
+              class="form-control mb-3"
+              placeholder="y"
+            />
+
+            <button class="btn btn-light w-100" id="runBtn">
+              Run Pathfinder
+            </button>
+
+            <hr class="text-light" />
+
+            <img
+              src="assets/aris.jpg"
+              class="img-fluid rounded"
+              alt="Aris the cat"
+            />
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="col-md-8">
+          <h5>ASCII Map Output</h5>
+          <pre id="asciiArea" class="ascii-box"></pre>
+
+          <h5 class="mt-4">Cost</h5>
+          <div id="costArea" class="text-info"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
