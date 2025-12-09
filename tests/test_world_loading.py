@@ -48,3 +48,13 @@ def test_invalid_terrain_raises(tmp_path):
 
     with pytest.raises(ValueError):
         Map_Anvil(str(file))
+        
+def test_non_rectangular_map_rejected(tmp_path):
+    """Map rows must be the same length."""
+    file = tmp_path / "non_rect.json"
+    file.write_text("""
+    [
+        ["WG", "WG"],
+        ["WG"]
+    ]
+    """)
