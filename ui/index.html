@@ -1,14 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aris Pathfinder</title>
+
+    <link rel="stylesheet" href="/ui/styles.css">
+
+    <style>
+        /* Optional: make the title area nicer */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 180px;
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 0 10px #0004;
+        }
+        .header h1 {
+            margin-top: 10px;
+            font-size: 2.3rem;
+        }
+    </style>
+</head>
+
 <body>
 
-<div class="panel">
+<div class="header">
     <h1>Aris Pathfinder</h1>
-    <p>Upload a map, choose start and goal, and watch Saladin’s A* algorithm find a path.</p>
+    <p>Visualising A* in a fantasy grid-based world.</p>
+    <img src="/ui/assets/aris_photo.png" alt="Aris the Cat">
 </div>
 
 <div class="panel">
     <h2>Upload Map</h2>
     <input type="file" id="mapUpload">
-
     <p id="statusArea">Waiting for map...</p>
 </div>
 
@@ -16,13 +43,23 @@
     <h2>Pathfinding Controls</h2>
 
     <div>
-        Start X: <input id="startX" type="number" value="0">
-        Start Y: <input id="startY" type="number" value="0"><br><br>
+        <label>Start X:</label>
+        <input id="startX" type="number" value="0">
 
-        Goal X: <input id="goalX" type="number" value="5">
-        Goal Y: <input id="goalY" type="number" value="5"><br><br>
+        <label>Start Y:</label>
+        <input id="startY" type="number" value="0">
 
-        Mode:
+        <br><br>
+
+        <label>Goal X:</label>
+        <input id="goalX" type="number" value="5">
+
+        <label>Goal Y:</label>
+        <input id="goalY" type="number" value="5">
+
+        <br><br>
+
+        <label>Mode:</label>
         <select id="mode">
             <option value="fewest_steps">Fewest Steps</option>
             <option value="lowest_energy">Lowest Energy</option>
@@ -41,6 +78,7 @@
 
 <div class="panel">
     <h2>Grid Visualisation</h2>
+
     <div id="gridView"></div>
 
     <h3>Legend</h3>
@@ -58,5 +96,7 @@
     </div>
 </div>
 
-<script src="app.js"></script>
+<script src="/ui/app.js"></script>
+
 </body>
+</html>

@@ -5,14 +5,15 @@ let uploadedFileId = null;
 // ----------------------------------------------------
 // Helper: show status messages
 // ----------------------------------------------------
+
 function setStatus(msg) {
     document.getElementById("statusArea").textContent = msg;
 }
 
-
 // ----------------------------------------------------
 // Auto-load DEFAULT WORLD on startup
 // ----------------------------------------------------
+
 async function loadDefaultMap() {
     try {
         setStatus("Loading default world...");
@@ -50,10 +51,10 @@ async function loadDefaultMap() {
     }
 }
 
-
 // ----------------------------------------------------
 // Manual Upload (user selects file)
 // ----------------------------------------------------
+
 document.getElementById("mapUpload").addEventListener("change", async function () {
     const file = this.files[0];
     if (!file) return;
@@ -85,10 +86,10 @@ document.getElementById("mapUpload").addEventListener("change", async function (
     }
 });
 
-
 // ----------------------------------------------------
 // Run Pathfinder
 // ----------------------------------------------------
+
 document.getElementById("runBtn").addEventListener("click", async function () {
 
     if (!uploadedFileId) {
@@ -138,6 +139,9 @@ document.getElementById("runBtn").addEventListener("click", async function () {
         }
 
         // Draw coloured grid
+        container.style.opacity = 0;
+        setTimeout(() => container.style.opacity = 1, 100);
+
         if (data.ascii) {
             renderGridFromAscii(data.ascii);
         }
@@ -149,10 +153,10 @@ document.getElementById("runBtn").addEventListener("click", async function () {
     }
 });
 
-
 // ----------------------------------------------------
 // Render the grid visually
 // ----------------------------------------------------
+
 function renderGridFromAscii(ascii) {
     const container = document.getElementById("gridView");
     container.innerHTML = "";
@@ -187,8 +191,12 @@ function renderGridFromAscii(ascii) {
     });
 }
 
+setTimeout(() => {
+    rowDiv.style.opacity = 1;
+}, 50);
 
 // ----------------------------------------------------
 // AUTO START
 // ----------------------------------------------------
+
 window.addEventListener("DOMContentLoaded", loadDefaultMap);
