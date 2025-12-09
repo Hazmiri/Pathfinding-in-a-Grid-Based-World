@@ -2,6 +2,47 @@
 
 let uploadedFileId = null;
 
+
+//------------------------------------------------------
+// AUTO-LOAD default_world.json on startup
+//------------------------------------------------------
+window.addEventListener("load", async () => {
+    try {
+        const response = await fetch("default_world.json");
+
+        if (!response.ok) {
+            console.warn("No default_world.json found.");
+            return;
+        }
+
+        const jsonData = await response.json();
+
+        // Convert JSON to a "fake file" so /upload_map accepts it
+        const file = new File([JSON.stringify(jsonData)], "default_world.json", {
+            type: "application/json"
+        });
+
+        const formData = new FormData();
+        formData.append("map", file);
+
+        const uploadResp = await fetch("/upload_map", {
+            method: "POST",
+            body: formData
+        });
+
+        const uploadData = await uploadResp.json();
+
+        if (uploadData.file_id) {
+            uploadedFileId = uploadData.file_id;
+            setStatus("Default map loaded successfully.");
+            document.getElementById("asciiArea").textContent = "Default world ready.";
+        }
+
+    } catch (err) {
+        console.error("Default world load error:", err);
+    }
+});
+
 // ----------------------------------------------------
 // Helper: show status messages
 // ----------------------------------------------------
