@@ -25,6 +25,7 @@ class Saladin_Pathfinder:
         self.world = world
         self.mode = mode
         self._tie_counter = itertools.count()   # tie-breaker for heapq
+        self.last_run_stats = {}  # stores results of the last search
 
     # ----------------------------------------------------------------------
     # PUBLIC METHOD (used by tests)
