@@ -73,6 +73,8 @@ def __init__(self, json_path: str):
     # Load the JSON s a Python list of list.
     raw_grid = self._load_json()
     
+    self._validate_structure(raw_grid)
+    
     # Normalise terrain names (convert short codes to full names).
     self.grid = self._normalise_grid(raw_grid)
     
