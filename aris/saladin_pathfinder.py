@@ -18,9 +18,11 @@ class Saladin_Pathfinder:
     Heroic pathfinder inspired by Saladin. Uses A* search to
     chart a course across the forged map.
     """
-
-    def __init__(self, world: Map_Anvil):
+    
+    def __init__(self, world: Map_Anvil, mode: str = "lowest_energy"):
         self.world = world
+        self.mode = mode
+
 
     # ------------------------------------------------------------
     # PUBLIC INTERFACE (used by tests)
