@@ -6,7 +6,6 @@ A* Pathfinder for Aris' world.
 
 from typing import Dict, List, Optional
 import heapq
-import itertools
 
 from runes.runes import PathGlyph
 from world.grid_forge import Map_Anvil
@@ -17,15 +16,16 @@ class Saladin_Pathfinder:
     """
     Mighty navigator inspired by Saladin.
     Supports:
-      - lowest_energy  (terrain cost + diagonal penalty)
-      - fewest_steps   (each move cost = 1)
+        - lowest_energy  (terrain cost + diagonal penalty)
+        - fewest_steps   (each move cost = 1)
     """
 
     def __init__(self, world: Map_Anvil, mode: str = "lowest_energy"):
         self.world = world
         self.mode = mode
-        self._tie_counter = itertools.count()   # tie-breaker for heapq
-        self.last_run_stats = {}  # stores results of the last search
+
+        # Stores metrics for the last completed search
+        self.last_run_stats = {}
 
     # ----------------------------------------------------------------------
     # PUBLIC METHOD (used by tests)
@@ -38,6 +38,12 @@ class Saladin_Pathfinder:
     ) -> Optional[List[PathGlyph]]:
 
         if hearth == pythonia:
+            self.last_run_stats = {
+                "nodes_expanded": 0,
+                "path_length": 0,
+                "total_energy": 0.0,
+                "success": True,
+            }
             return [hearth]
 
         if mode is None:
@@ -46,7 +52,7 @@ class Saladin_Pathfinder:
         return self._a_star(hearth, pythonia, mode)
 
     # ----------------------------------------------------------------------
-    # INTERNAL: A* SEARCH
+    # INTERNAL: A* SEARCH  (WITH METRICS)
     # ----------------------------------------------------------------------
     def _a_star(
         self,
@@ -55,17 +61,38 @@ class Saladin_Pathfinder:
         mode: str
     ) -> Optional[List[PathGlyph]]:
 
+        # reset metrics
+        stats = {
+            "nodes_expanded": 0,
+            "path_length": 0,
+            "total_energy": 0.0,
+            "success": False,
+        }
+
         open_set = []
-        heapq.heappush(open_set, (0, next(self._tie_counter), start))
+        heapq.heappush(open_set, (0, start))
 
         came_from: Dict[PathGlyph, Optional[PathGlyph]] = {start: None}
         g_score: Dict[PathGlyph, float] = {start: 0}
 
         while open_set:
-            _, _, current = heapq.heappop(open_set)
+            _, current = heapq.heappop(open_set)
+            stats["nodes_expanded"] += 1
 
             if current == goal:
-                return self._reconstruct_path(came_from, current)
+                path = self._reconstruct_path(came_from, current)
+
+                stats["path_length"] = len(path) - 1
+
+                # total energy cost
+                total_energy = 0.0
+                for i in range(1, len(path)):
+                    total_energy += self._movement_cost(path[i - 1], path[i])
+                stats["total_energy"] = total_energy
+
+                stats["success"] = True
+                self.last_run_stats = stats
+                return path
 
             for neighbour in self.world.neighbours(current):
 
@@ -79,8 +106,9 @@ class Saladin_Pathfinder:
                     came_from[neighbour] = current
 
                     priority = tentative + self._heuristic(neighbour, goal, mode)
-                    heapq.heappush(open_set, (priority, next(self._tie_counter), neighbour))
+                    heapq.heappush(open_set, (priority, neighbour))
 
+        self.last_run_stats = stats
         return None
 
     # ----------------------------------------------------------------------
@@ -91,11 +119,8 @@ class Saladin_Pathfinder:
         Terrain cost + small diagonal penalty.
         """
         cost = self.world.cost_at(b)
-
-        # We implement diagonal detection here because PathGlyph has none.
-        if abs(a.x - b.x) == 1 and abs(a.y - b.y) == 1:
+        if a.is_diagonal_to(b):
             cost += 0.4
-
         return cost
 
     def _heuristic(self, a: PathGlyph, b: PathGlyph, mode: str) -> float:
@@ -104,15 +129,11 @@ class Saladin_Pathfinder:
         """
         dx = abs(a.x - b.x)
         dy = abs(a.y - b.y)
-        distance = max(dx, dy)
 
         if mode == "fewest_steps":
-            return distance
+            return max(dx, dy)
         else:
-            # Lowest-cost walkable terrain
-            lowest = minimum_traversable_cost()
-
-            return distance * lowest
+            return max(dx, dy) * minimum_traversable_cost()
 
     def _reconstruct_path(
         self,
