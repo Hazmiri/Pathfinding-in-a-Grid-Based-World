@@ -58,3 +58,5 @@ def test_non_rectangular_map_rejected(tmp_path):
         ["WG"]
     ]
     """)
+    with pytest.raises(ValueError):
+        Map_Anvil(str(file))
