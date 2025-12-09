@@ -97,8 +97,9 @@ class Map_Anvil:
     def cost_at(self, glyph: PathGlyph) -> float:
         return TERRAIN_CATALOGUE[self.terrain_at(glyph)]
 
-    def in_bounds(self, glyph: PathGlyph) -> bool:
-        return 0 <= glyph.x < self.width and 0 <= glyph.y < self.height
+    def in_bounds(self, x: int, y: int) -> bool:
+        return 0 <= y < self.height and 0 <= x < self.width
+
 
     def neighbours(self, glyph: PathGlyph) -> List[PathGlyph]:
         """
