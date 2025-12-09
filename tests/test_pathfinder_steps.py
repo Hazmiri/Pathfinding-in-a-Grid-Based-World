@@ -46,3 +46,24 @@ def test_steps_diagonal_is_one_move(tmp_path):
     path = pathfinder.chart_course(hearth, pythonia)
     assert path is not None
     assert len(path) == 2  # one diagonal step
+    
+def test_steps_blocked_path(tmp_path):
+    """Path must detour around obstacles."""
+    file = tmp_path / "blocked.json"
+    file.write_text("""
+    [
+        ["WG", "WA", "WG"],
+        ["WG", "WA", "WG"],
+        ["WG", "WG", "WG"]
+    ]
+    """)
+
+    world = Map_Anvil(str(file))
+    pf = Saladin_Pathfinder(world, mode="fewest_steps")
+
+    hearth = PathGlyph(0, 0)
+    pythonia = PathGlyph(2, 0)
+
+    path = pf.chart_course(hearth, pythonia)
+    assert path is not None
+    assert len(path) > 3   # must go around walls
