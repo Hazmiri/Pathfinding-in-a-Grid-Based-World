@@ -1,146 +1,77 @@
-# app.py
-
-from flask import Flask, request, jsonify, send_from_directory, render_template_string
+from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 import os
-import uuid
 import tempfile
 
 from world.grid_forge import Map_Anvil
 from runes.runes import PathGlyph
 from aris.saladin_pathfinder import Saladin_Pathfinder
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="ui", static_url_path="")
 
-# Store maps temporarily in system temp dir
-UPLOAD_DIR = tempfile.gettempdir()
-
-
-# ============================================================
-# Utility: Save file safely
-# ============================================================
-def save_uploaded_file(upload):
-    filename = secure_filename(upload.filename)
-    unique_id = str(uuid.uuid4())
-    temp_path = os.path.join(UPLOAD_DIR, unique_id + "_" + filename)
-    upload.save(temp_path)
-    return temp_path
+UPLOAD_FOLDER = tempfile.gettempdir()
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
-# ============================================================
-# 1. UPLOAD MAP
-# ============================================================
+# 🔹 Serve the UI
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
+
+
+# 🔹 Upload map file
 @app.route("/upload_map", methods=["POST"])
 def upload_map():
     if "map" not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
+        return jsonify({"error": "No file part"}), 400
 
     file = request.files["map"]
+
     if file.filename == "":
-        return jsonify({"error": "Empty filename"}), 400
+        return jsonify({"error": "No selected file"}), 400
 
-    try:
-        stored_path = save_uploaded_file(file)
-        return jsonify({"file_id": stored_path}), 200
+    filename = secure_filename(file.filename)
+    temp_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(temp_path)
 
-    except Exception as e:
-        return jsonify({"error": f"Failed to store file: {e}"}), 500
-
-
-# ============================================================
-# 2. VALIDATE MAP
-# ============================================================
-@app.route("/validate_map", methods=["POST"])
-def validate_map():
-    data = request.get_json()
-    if "file_id" not in data:
-        return jsonify({"error": "file_id missing"}), 400
-
-    try:
-        Map_Anvil(data["file_id"])  # will raise error automatically if invalid
-        return jsonify({"valid": True}), 200
-
-    except Exception as e:
-        return jsonify({"valid": False, "error": str(e)}), 400
+    return jsonify({"file_id": temp_path}), 200
 
 
-# ============================================================
-# 3. PATHFIND
-# ============================================================
+# 🔹 Run Saladin Pathfinder
 @app.route("/pathfind", methods=["POST"])
 def pathfind():
     data = request.get_json()
 
     required = ["file_id", "start", "goal", "mode"]
     if not all(k in data for k in required):
-        return jsonify({"error": "Missing required fields"}), 400
+        return jsonify({"error": "Missing required keys"}), 400
 
-    file_id = data["file_id"]
-
-    try:
-        world = Map_Anvil(file_id)
-    except Exception as e:
-        return jsonify({"error": f"Could not load map: {e}"}), 400
-
+    map_path = data["file_id"]
     start = PathGlyph(data["start"]["x"], data["start"]["y"])
     goal = PathGlyph(data["goal"]["x"], data["goal"]["y"])
+    mode = data["mode"]
 
-    pf = Saladin_Pathfinder(world, mode=data["mode"])
+    world = Map_Anvil(map_path)
+    pf = Saladin_Pathfinder(world, mode=mode)
 
-    try:
-        path = pf.chart_course(start, goal)
-    except Exception as e:
-        return jsonify({"error": f"Pathfinding failed: {e}"}), 500
+    path = pf.chart_course(start, goal)
 
     if path is None:
-        return jsonify({"path": None, "cost": None}), 200
+        return jsonify({"path": None, "cost": None, "ascii": None}), 200
 
-    serialized = [{"x": p.x, "y": p.y} for p in path]
+    serialized_path = [{"x": p.x, "y": p.y} for p in path]
 
-    # Compute cost cleanly
-    total_cost = sum(world.cost_at(path[i + 1]) for i in range(len(path) - 1))
-    total_cost = float(round(total_cost, 3))
+    # compute cost
+    cost = 0
+    for i in range(len(path) - 1):
+        cost += pf._movement_cost(path[i], path[i+1])
 
     return jsonify({
-        "path": serialized,
-        "cost": total_cost,
+        "path": serialized_path,
+        "cost": round(cost, 3),
         "ascii": world.render_ascii(path=path, hearth=start, pythonia=goal)
     }), 200
 
-
-# ============================================================
-# 4. ASCII PREVIEW WITHOUT PATHFINDING
-# ============================================================
-@app.route("/ascii_preview", methods=["POST"])
-def ascii_preview():
-    data = request.get_json()
-
-    if "file_id" not in data:
-        return jsonify({"error": "file_id missing"}), 400
-
-    try:
-        world = Map_Anvil(data["file_id"])
-        ascii_map = world.render_ascii()
-        return jsonify({"ascii": ascii_map}), 200
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
-    
-# ----------------------------------------------------------
-# UI ROUTES – Serve the frontend (index.html, CSS, JS, images)
-# ----------------------------------------------------------
-@app.route("/")
-def index():
-    return send_from_directory("ui", "index.html")
-
-
-@app.route("/<path:filename>")
-def ui_static(filename):
-    return send_from_directory("ui", filename)
-
-# ============================================================
-# FLASK APP STARTUP
-# ============================================================
 
 if __name__ == "__main__":
     app.run(debug=True)
