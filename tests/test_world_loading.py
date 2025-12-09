@@ -36,3 +36,15 @@ def test_load_short_codes(tmp_path):
     world = Map_Anvil(str(file))
     assert world.terrain_at(PathGlyph(0, 0)) == "whispering_grassland"
     assert world.terrain_at(PathGlyph(1, 1)) == "wall_of_ancients"
+
+def test_invalid_terrain_raises(tmp_path):
+    """Unknown terrain must raise a ValueError."""
+    file = tmp_path / "bad.json"
+    file.write_text("""
+    [
+        ["WG", "???"]
+    ]
+    """)
+
+    with pytest.raises(ValueError):
+        Map_Anvil(str(file))
