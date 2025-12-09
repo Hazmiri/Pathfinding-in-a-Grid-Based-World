@@ -27,58 +27,24 @@ class Saladin_Pathfinder:
     # ------------------------------------------------------------
     # PUBLIC INTERFACE (used by tests)
     # ------------------------------------------------------------
-    def chart_course(
-        self, hearth: PathGlyph, pythonia: PathGlyph, mode: str = "lowest_energy"
-    ) -> Optional[List[PathGlyph]]:
-        """
-        Chart a path from hearth (start) to pythonia (goal).
-
-        mode:
-            "lowest_energy"  → use terrain cost + movement cost
-            "fewest_steps"   → each move cost = 1
-        """
-
-        # Special case: start == goal
-        if hearth == pythonia:
-            return [hearth]
-
-        return self._a_star(hearth, pythonia, mode)
+    def chart_course(self, hearth: PathGlyph, pythonia: PathGlyph, mode: Optional[str] = None):
+        if mode is None:
+            mode = self.mode
 
     # ------------------------------------------------------------
     # INTERNAL: A* SEARCH
     # ------------------------------------------------------------
-    def _a_star(
-        self, hearth: PathGlyph, pythonia: PathGlyph, mode: str
-    ) -> Optional[List[PathGlyph]]:
+    def __init__(self, world: Map_Anvil, mode: str = "lowest_energy"):
+        self.world = world
+        self.mode = mode
 
-        open_set = []
-        heapq.heappush(open_set, (0, hearth))
+    def chart_course(self, hearth: PathGlyph, pythonia: PathGlyph, mode: Optional[str] = None):
+        if hearth == pythonia:
+            return [hearth]
 
-        came_from: Dict[PathGlyph, Optional[PathGlyph]] = {hearth: None}
-
-        g_score: Dict[PathGlyph, float] = {hearth: 0}
-
-        while open_set:
-            _, current = heapq.heappop(open_set)
-
-            if current == pythonia:
-                return self._reconstruct_path(came_from, current)
-
-            for neighbour in self.world.neighbours(current):
-
-                if mode == "fewest_steps":
-                    tentative = g_score[current] + 1
-                else:  # lowest_energy
-                    tentative = g_score[current] + self._movement_cost(current, neighbour)
-
-                if neighbour not in g_score or tentative < g_score[neighbour]:
-                    g_score[neighbour] = tentative
-                    came_from[neighbour] = current
-
-                    priority = tentative + self._heuristic(neighbour, pythonia, mode)
-                    heapq.heappush(open_set, (priority, neighbour))
-
-        return None  # No path found
+        if mode is None:
+            mode = self.mode
+        return self._a_star(hearth, pythonia, mode)
 
     # ------------------------------------------------------------
     # INTERNAL UTILITIES
