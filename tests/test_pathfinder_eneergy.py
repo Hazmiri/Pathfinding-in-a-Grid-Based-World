@@ -52,5 +52,5 @@ def test_energy_blocked_terrain(tmp_path):
     pythonia = PathGlyph(2, 0)
 
     path = pf.chart_course(hearth, pythonia)
-    assert path is None  # the wall blocks all paths 
-       
+    assert path is None  # the wall blocks all paths
+    
