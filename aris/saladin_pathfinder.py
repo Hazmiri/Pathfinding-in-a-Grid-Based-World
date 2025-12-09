@@ -6,6 +6,7 @@ A* Pathfinder for Aris' world.
 
 from typing import Dict, List, Optional
 import heapq
+import itertools
 
 from runes.runes import PathGlyph
 from world.grid_forge import Map_Anvil
@@ -23,6 +24,7 @@ class Saladin_Pathfinder:
     def __init__(self, world: Map_Anvil, mode: str = "lowest_energy"):
         self.world = world
         self.mode = mode
+        self._tie_counter = itertools.count()   # tie-breaker for heapq
 
     # ----------------------------------------------------------------------
     # PUBLIC METHOD (used by tests)
@@ -53,23 +55,22 @@ class Saladin_Pathfinder:
     ) -> Optional[List[PathGlyph]]:
 
         open_set = []
-        heapq.heappush(open_set, (0, start))
+        heapq.heappush(open_set, (0, next(self._tie_counter), start))
 
         came_from: Dict[PathGlyph, Optional[PathGlyph]] = {start: None}
         g_score: Dict[PathGlyph, float] = {start: 0}
 
         while open_set:
-            _, current = heapq.heappop(open_set)
+            _, _, current = heapq.heappop(open_set)
 
             if current == goal:
                 return self._reconstruct_path(came_from, current)
 
             for neighbour in self.world.neighbours(current):
 
-                # Movement cost mode
                 if mode == "fewest_steps":
                     tentative = g_score[current] + 1
-                else:  # lowest_energy
+                else:
                     tentative = g_score[current] + self._movement_cost(current, neighbour)
 
                 if neighbour not in g_score or tentative < g_score[neighbour]:
@@ -77,7 +78,7 @@ class Saladin_Pathfinder:
                     came_from[neighbour] = current
 
                     priority = tentative + self._heuristic(neighbour, goal, mode)
-                    heapq.heappush(open_set, (priority, neighbour))
+                    heapq.heappush(open_set, (priority, next(self._tie_counter), neighbour))
 
         return None
 
@@ -89,8 +90,11 @@ class Saladin_Pathfinder:
         Terrain cost + small diagonal penalty.
         """
         cost = self.world.cost_at(b)
-        if a.is_diagonal_to(b):
+
+        # We implement diagonal detection here because PathGlyph has none.
+        if abs(a.x - b.x) == 1 and abs(a.y - b.y) == 1:
             cost += 0.4
+
         return cost
 
     def _heuristic(self, a: PathGlyph, b: PathGlyph, mode: str) -> float:
@@ -99,11 +103,14 @@ class Saladin_Pathfinder:
         """
         dx = abs(a.x - b.x)
         dy = abs(a.y - b.y)
+        distance = max(dx, dy)
 
         if mode == "fewest_steps":
-            return max(dx, dy)
+            return distance
         else:
-            return max(dx, dy) * minimum_traversable_cost()
+            # Lowest-cost walkable terrain
+            lowest = minimum_traversable_cost("whispering_grassland")
+            return distance * lowest
 
     def _reconstruct_path(
         self,
