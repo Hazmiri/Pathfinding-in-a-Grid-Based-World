@@ -1,1 +1,81 @@
-Today The project start.
+Project Roadmap
+Pathfinding in a Grid-Based World
+Phase 1 — Foundation (Completed)
+
+✔ Create project structure
+✔ Implement terrain system
+✔ Load and validate JSON world maps
+✔ Convert terrain shortcodes → long names
+✔ Basic ASCII render system
+
+Phase 2 — Pathfinding Engine (Completed)
+
+✔ Implement PathGlyph
+✔ Implement A* from scratch
+✔ Add movement cost modes:
+
+fewest_steps
+
+lowest_energy
+
+✔ Neighbour validation (bounds + walls)
+✔ Reconstruct path logic
+
+Phase 3 — Testing (Completed)
+
+✔ Write 13 pytest tests
+✔ Fix edge cases
+✔ Achieve 100% pass rate
+✔ Debug Map_Anvil neighbours and traversability
+
+Phase 4 — Web Backend (Completed)
+
+✔ Build Flask API
+✔ /upload_map endpoint
+✔ /pathfind endpoint
+✔ Return:
+
+ASCII render
+
+path list
+
+total movement cost
+
+✔ Auto-reload dev server
+
+Phase 5 — Web UI (Completed)
+
+✔ index.html layout
+✔ app.js logic
+✔ default world autoload
+✔ coloured grid renderer
+✔ terrain legend
+✔ start/goal selection interface
+
+Phase 6 — Polishing (Current)
+
+⬜ Add animations
+⬜ Add nicer interface styling
+⬜ Add multiple theme options
+⬜ Add random world generator (optional)
+⬜ Add path length / energy charts (optional)
+
+Phase 7 — Submission Prep (Next)
+
+⬜ Final cleanup
+⬜ Remove __pycache__
+⬜ Ensure README.md is perfect
+⬜ Zip final project
+⬜ Submit on Moodle
+
+Optional Future Work
+
+3D terrain height-based cost
+
+Fog of war (partial vision)
+
+Dijkstra mode
+
+BFS mode
+
+Mobile-friendly UI
